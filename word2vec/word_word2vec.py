@@ -1,3 +1,12 @@
+#===============================================================================
+#
+#  실행방법 : python word_word2vec.py [input jl filename] [output  model_name]
+#  
+#  ex) python word_word2vec.py donga.jl  donga
+#
+#===============================================================================
+
+
 from lib2to3.pgen2.tokenize import tokenize
 import sys
 import json
@@ -5,7 +14,9 @@ import os
 import csv
 import codecs
 from glob import glob
+from tkinter import W
 #from collections import Counter
+#from konlpy.tag import Twitter
 from konlpy.tag import Kkma
 from gensim.models import word2vec
 
@@ -20,18 +31,17 @@ def main():
     디렉터리 내부의 파일을 읽어 들이고
     빈출 단어를 출력합니다.
     """
+    #twitter = Twitter()
     kkma = Kkma()
     count_proccessed = 0
 
     path = sys.argv[1]
     print('Processing {0}...'.format(path), file=sys.stderr)
+
+    input_model_name = sys.argv[2]
    
-    token = []
+    tokens = []
     results = []
-    
-    # 단어의 빈도를 저장하기 위한 Counter 객체를 생성합니다.
-    # Counter 클래스는 dict를 상속받는 클래스입니다.           
-    #frequency = Counter()
 
     # 파일을 엽니다.
     with open(path, 'r', encoding="utf-8") as file:
@@ -40,20 +50,34 @@ def main():
             
             json_object = json.loads(line)
             content = ''.join(json_object['body'])
+            #twitter 형태소 분리기 사용
+            #text_lines = content.split("\r\n")
+            #word_dic = {}
+
+            #for text in text_lines:
+            #    malist = twitter.pos(text)
+            #    #print(malist)
+            #    for word in malist:
+            #        if word[1] == "Noun":
+            #            #print(word[0])
+            #            if not (word[0] in word_dic):
+            #                word_dic[word[0]] = 0
+
+            #            word_dic[word[0]] += 1
+            #            tokens.append(word[0])
+            # twitter 형태소 분리기 사용 END
 
             node = kkma.pos(content)
             for (taeso, pumsa) in node:
                  # 고유 명사와 일반 명사만 추출합니다.
                  if pumsa in ('NNG', 'NNP'):
-                    token.append(taeso)
+                    tokens.append(taeso)
     
-            rl = (" ".join(token)).strip()
+            rl = (" ".join(tokens)).strip()
             results.append(rl)
             print(rl)
 
             count_proccessed += 1
-
-    #frequency.update(token)
      
 
     #모든 기사의 처리가 끝나면 상위 0개의 단어를 출력합니다
@@ -62,38 +86,22 @@ def main():
           .format(count_proccessed),file=sys.stderr)
     print("=========================================")
 
-    print(token)
-    print('Total token 개수 : {}'.format(len(results)))
+    print('Total token 개수 : {}'.format(len(tokens)))
 
-    wakati_file = "jeju.wakati"
+    wakati_file = input_model_name +".textpro"
+    #print(wakati_file)
 
     with open(wakati_file, 'w', encoding="utf-8") as f:
         f.write("\n".join(results))
 
     # Word2Vec 모델 만들기 
     data = word2vec.LineSentence(wakati_file)
-    model = word2vec.Word2Vec(data, vector_size=100, window=5, hs=1, min_count=2, sg=1)
+    model = word2vec.Word2Vec(data, vector_size=100, window=10, hs=1, min_count=2, sg=1)
 
-    model_name = 'jeju1.model'
+    model_name = input_model_name + '.model'
     model.save(model_name)
     print(model_name + ' 모델 저장됨!')
     print('-finished-')
-
-    #wordInfo = dict()
-    #path = "word_count5.csv"
-
-    #with open(path, 'w', newline='', encoding="utf-8") as f:
-    #    writer = csv.writer(f)
-    #    writer.writerow(['word', 'count'])
-    #    #row = [json_object['word'], json_object['count']]
-
-    #    for word, count in frequency.most_common(30):
-    #        if (len(str(word)) > 1):
-    #            wordInfo[word] = count
-    #            writer.writerow([word, count])       
-    #            print ("%s : %d" % (word, count))
-
-    #    f.close()
 
 
 

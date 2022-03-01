@@ -1,3 +1,8 @@
+# - 제주일보 : www.jejunews.com - #
+# 1 page 20 articles
+# http://jejunews.com
+# http://www.jejunews.com/news/articleList.html?page=1….n
+
 import scrapy
 
 from crawler.items import Headline
@@ -32,19 +37,17 @@ class JejuSpider(scrapy.Spider):
             # 의미 없는 페이지 제외
             if url == "#": 
                 continue
-            # 기사 페이지
-            # yield scrapy.Request(response.urljoin(url), self.parse_topics)
+
             yield scrapy.Request(url, self.parse_topics)
+
 
     def parse_topics(self, response):
         item = Headline()
         item['title'] = response.css('head title::text').extract_first()
         item['url'] = response.url
-        item['body'] = " ".join(response.css('.user-content p')\
-             .xpath('string()')\
-             .extract())
-        #item['body'] = response.css('.user-content p::text').extract()
-        #item['body'] = response.css('.user-content p').xpath('string()').extract()
+        item['body'] = " ".join(response.css('.user-content p').xpath('string()') .extract())
+        #xpath = //*[@id="article-view-content-div"]/p  -by mjkim
+       
         yield item
         
 
