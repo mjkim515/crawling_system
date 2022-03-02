@@ -15,7 +15,7 @@ class KbilboSpider(scrapy.Spider):
     start_urls = ['http://www.kyongbuk.co.kr/']
 
     def start_requests(self):
-        for i in range(1, 6): 
+        for i in range(1, 4): 
             yield scrapy.Request("https://www.kyongbuk.co.kr/news/articleList.html?page=" + str(i))
                 #https://www.kyongbuk.co.kr/news/articleList.html?page=1
             
@@ -47,6 +47,8 @@ class KbilboSpider(scrapy.Spider):
         item['title'] = response.css('head title::text').extract_first()
         item['url'] = response.url
         #//*[@id="article-view-content-div"]/p/text()[1]
-        item['body'] = response.xpath('//*[@id="article-view-content-div"]/p/text()').extract()
+        item['body'] = "".join(response.xpath('//*[@id="article-view-content-div"]/p/text()').extract())
+        if not (item['body']):
+            item['body'] = " ".join(response.xpath('//*[@id="article-view-content-div"]/text()').extract())
         #item['body'] = " ".join(response.css('.user-content p').xpath('string()').extract())
         yield item 
