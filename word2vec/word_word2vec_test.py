@@ -16,7 +16,7 @@ from gensim.models import word2vec
 
 # Mac
 # plt.rc('font', family='Malgun Gothic')
-plt.rc('font', family="./MalgunGothic.ttf")
+plt.rc('font', family="NanumGothic.ttf")
 
 # 바 그래프 그리기
 
