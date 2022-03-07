@@ -14,7 +14,6 @@ import os
 import csv
 import codecs
 from glob import glob
-from tkinter import W
 #from collections import Counter
 #from konlpy.tag import Twitter
 from konlpy.tag import Kkma
