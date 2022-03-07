@@ -16,7 +16,7 @@ class ImaeilSpider(scrapy.Spider):
     start_urls = ['http://news.imaeil.com/']
 
     def start_requests(self):
-        for i in range(1, 2):       
+        for i in range(1, 3):       
             yield scrapy.Request("http://news.imaeil.com/latest_article?page=" + str(i))
             
     #http://news.imaeil.com/latest_article?page=1

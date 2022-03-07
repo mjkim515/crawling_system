@@ -1,3 +1,11 @@
+# 
+# 매일신문 [imaeil] 
+# 1 page 20 articles
+# http://www.idaegu.co.kr/
+# https://www.idaegu.co.kr/news/articleList.html?page=1….n
+# 
+
+
 from pandas import notnull
 import scrapy
 
@@ -9,7 +17,7 @@ class IdaeguSpider(scrapy.Spider):
     start_urls = ['http://www.idaegu.co.kr/']
 
     def start_requests(self):
-        for i in range(1, 6):       
+        for i in range(1, 4):       
             yield scrapy.Request("https://www.idaegu.co.kr/news/articleList.html?page=" + str(i))
             
     #https://www.idaegu.co.kr/news/articleList.html?page=1

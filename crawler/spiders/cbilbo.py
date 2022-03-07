@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # 충북일보 [cbilbo] 
 # 1page = 25 article
 # http://www.inews365.com

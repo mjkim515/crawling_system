@@ -1,3 +1,5 @@
+#-*- coding:utf-8 -*-
+
 #===============================================================================
 #
 #  실행방법 : python word_word2vec_test.py [input modelname] [keword]
@@ -12,7 +14,9 @@ import matplotlib.pyplot as plt
 
 from gensim.models import word2vec
 
-plt.rc('font', family='Malgun Gothic')
+# Mac
+# plt.rc('font', family='Malgun Gothic')
+plt.rc('font', family="./MalgunGothic.ttf")
 
 # 바 그래프 그리기
 

@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 #
 # - 충청뉴스 [ccnnews] - 
 # 1 page 20 articles

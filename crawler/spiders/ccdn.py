@@ -1,4 +1,5 @@
-#
+# -*- coding: utf-8 -*-
+
 # 충청매일 [ccdn] - 1page 20
 # http://www.ccdn.co.kr
 # https://www.ccdn.co.kr/news/articleList.html?page=1

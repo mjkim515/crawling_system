@@ -14,12 +14,13 @@ import os
 import csv
 from glob import glob
 from collections import Counter
-from konlpy.tag import Kkma
-#from konlpy.tag import Twitter
+# from konlpy.tag import Kkma
+from konlpy.tag import Twitter
 
 import matplotlib.pyplot as plt
 import matplotlib
 from matplotlib import font_manager
+#import matplotlib.font_manager as fm
 
 def main():
     """
@@ -27,8 +28,8 @@ def main():
     디렉터리 내부의 파일을 읽어 들이고
     빈출 단어를 출력합니다.
     """
-    #twitter = Twitter()
-    kkma = Kkma()
+    twitter = Twitter()
+    # kkma = Kkma()
     count_proccessed = 0
 
     path = sys.argv[1]
@@ -52,30 +53,30 @@ def main():
             # 명사를 저장할 리스트입니다.
 
             # twitter 형태소 분리기 사용
-            #word_dic = {}
-            #text_lines = content.split("\r\n")
-   #
+            word_dic = {}
+            text_lines = content.split("\r\n")
+   
             #print(text_lines)
-            #
-            #for text in text_lines:
-            #    malist = twitter.pos(text)
-            #    #print(malist)
-            #    for word in malist:
-            #        if word[1] == "Noun":
-            #            #print(word[0])
-            #            if not (word[0] in word_dic):
-            #                word_dic[word[0]] = 0
-#
-            #            word_dic[word[0]] += 1
-            #            tokens.append(word[0])
+            
+            for text in text_lines:
+               malist = twitter.pos(text)
+               #print(malist)
+               for word in malist:
+                   if word[1] == "Noun":
+                       #print(word[0])
+                       if not (word[0] in word_dic):
+                           word_dic[word[0]] = 0
+
+                       word_dic[word[0]] += 1
+                       tokens.append(word[0])
             # twitter 형태소 분리기 사용 END
 
-            print (content)
-            node = kkma.pos(content)
-            for (taeso, pumsa) in node:
-                 # 고유 명사와 일반 명사만 추출합니다.
-                 if pumsa in ('NNG', 'NNP'):
-                    tokens.append(taeso)
+            # print (content)
+            # node = kkma.pos(content)
+            # for (taeso, pumsa) in node:
+            #      # 고유 명사와 일반 명사만 추출합니다.
+            #      if pumsa in ('NNG', 'NNP'):
+            #         tokens.append(taeso)
     
             count_proccessed += 1
 
@@ -97,7 +98,7 @@ def main():
         writer.writerow(['word', 'count'])
         
         
-        for word, count in frequency.most_common(30):
+        for word, count in frequency.most_common(40):
             if (len(str(word)) > 1):
                 wordInfo[word] = count
                 writer.writerow([word, count])       
@@ -114,8 +115,8 @@ def showGraph(word_info, paper_name):
     다빈도 단어 중 top20의 단어와 단어별 빈도수를 
     히스토그램 그래프로 나타낸다.
     """
-    font_location = "c:\Windows\Fonts\malgun.ttf"
-    font_name = font_manager.FontProperties(fname=font_location).get_name()
+    #font_location = "c:\Windows\Fonts\malgun.ttf"
+    font_name = font_manager.FontProperties("./MalgunGothic.ttf").get_name()
     matplotlib.rc('font', family=font_name) 
 
     plt.xlabel('주요 단어')

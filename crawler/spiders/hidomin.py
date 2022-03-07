@@ -15,7 +15,7 @@ class HidominSpider(scrapy.Spider):
     start_urls = ['http://www.hidomin.com/']
 
     def start_requests(self):
-        for i in range(1, 3):       
+        for i in range(1, 4):       
             yield scrapy.Request("https://www.hidomin.com/news/articleList.html?page=1" + str(i))
             
     #https://www.hidomin.com/news/articleList.html?page=1

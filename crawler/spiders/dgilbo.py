@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # -  대구일보[dgilbo] 
 # 1 page 15 articles
 # https://www.idaegu.com/
@@ -14,7 +15,7 @@ class DgilboSpider(scrapy.Spider):
     start_urls = ['http://www.idaegu.com/']
 
     def start_requests(self):
-        for i in range(1, 8):       
+        for i in range(1, 5):       
             yield scrapy.Request("https://www.idaegu.com/newsList/?page=" + str(i))
             
     
