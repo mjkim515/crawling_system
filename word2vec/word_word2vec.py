@@ -15,8 +15,8 @@ import csv
 import codecs
 from glob import glob
 #from collections import Counter
-#from konlpy.tag import Twitter
-from konlpy.tag import Kkma
+from konlpy.tag import Twitter
+#from konlpy.tag import Kkma
 from gensim.models import word2vec
 
 # showGraph를 위한 모듈 
@@ -30,8 +30,8 @@ def main():
     디렉터리 내부의 파일을 읽어 들이고
     빈출 단어를 출력합니다.
     """
-    #twitter = Twitter()
-    kkma = Kkma()
+    twitter = Twitter()
+    #kkma = Kkma()
     count_proccessed = 0
 
     path = sys.argv[1]
@@ -51,32 +51,31 @@ def main():
             content = ''.join(json_object['body'])
             #twitter 형태소 분리기 사용
             #text_lines = content.split("\r\n")
-            #word_dic = {}
+            word_dic = {}
 
-            #for text in text_lines:
-            #    malist = twitter.pos(text)
-            #    #print(malist)
-            #    for word in malist:
-            #        if word[1] == "Noun":
-            #            #print(word[0])
-            #            if not (word[0] in word_dic):
-            #                word_dic[word[0]] = 0
+            for text in text_lines:
+               malist = twitter.pos(text)
+               #print(malist)
+               for word in malist:
+                   if word[1] == "Noun":
+                       #print(word[0])
+                       if not (word[0] in word_dic):
+                           word_dic[word[0]] = 0
 
-            #            word_dic[word[0]] += 1
-            #            tokens.append(word[0])
+                       word_dic[word[0]] += 1
+                       tokens.append(word[0])
             # twitter 형태소 분리기 사용 END
 
-            node = kkma.pos(content)
-            for (taeso, pumsa) in node:
-                 # 고유 명사와 일반 명사만 추출합니다.
-                 if pumsa in ('NNG', 'NNP'):
-                    tokens.append(taeso)
-    
-            rl = (" ".join(tokens)).strip()
-            results.append(rl)
-            print(rl)
-
+            # node = kkma.pos(content)
+            # for (taeso, pumsa) in node:
+            #      # 고유 명사와 일반 명사만 추출합니다.
+            #      if pumsa in ('NNG', 'NNP'):
+            #         tokens.append(taeso)
+            
             count_proccessed += 1
+    
+        rl = (" ".join(tokens)).strip()
+        results.append(rl)   
      
 
     #모든 기사의 처리가 끝나면 상위 0개의 단어를 출력합니다

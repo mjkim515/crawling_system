@@ -22,7 +22,7 @@ from konlpy.tag import Twitter
 
 import matplotlib.pyplot as plt
 import matplotlib
-#from matplotlib import font_manager
+from matplotlib import font_manager
 
 def main():
     """
@@ -95,10 +95,6 @@ def main():
 
     print('Total token 개수 : {}'.format(len(tokens)))
     print("=========================================")
-    #print(tokens)
-    #print("=========================================")
-    #print('Total result 개수 : {}'.format(len(results)))
-    #print(results)
 
 
     # Word2Vec 모델 만들기 
@@ -157,7 +153,9 @@ def showGraph(word_info, paper_name):
     """
     # font_location = "c:\Windows\Fonts\malgun.ttf"
     # font_name = font_manager.FontProperties(fname=font_location).get_name()
-    matplotlib.rc('font', family='./MalgunGothic.ttf')
+    path_gothic = '/usr/share/fonts/truetype/nanum/NanumGothic.ttf'
+    font_name = font_manager.FontProperties(fname=path_gothic).get_name()
+    matplotlib.rc('font', family=font_name) 
 
     plt.xlabel('주요 단어')
     plt.ylabel('빈도수')
