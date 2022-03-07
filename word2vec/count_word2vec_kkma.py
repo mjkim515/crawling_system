@@ -148,7 +148,7 @@ def showGraph(word_info, paper_name):
     """
     #font_location = "c:\Windows\Fonts\malgun.ttf"
     #font_name = font_manager.FontProperties(fname=font_location).get_name()
-    font_name = font_manager.FontProperties("./MalgunGothic.ttf").get_name()
+    font_name = font_manager.FontProperties("NanumGothic.ttf").get_name()
     matplotlib.rc('font', family=font_name) 
 
     plt.xlabel('주요 단어')
