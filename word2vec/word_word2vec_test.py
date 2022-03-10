@@ -53,9 +53,9 @@ bargraph = model.wv.most_similar(positive=[inputword])
 
 showGraph(bargraph, inputword)
 
+# Similarity Test... 
 #similarity_test = []
 #similarity_test = model.wv.similarity('후보', '후보자')
-#
 #print ("사업 : " + str(similarity_test))
 
 plt.show()

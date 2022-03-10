@@ -16,7 +16,6 @@ import timeit
 from glob import glob
 from collections import Counter
 from gensim.models import word2vec
-#from konlpy.tag import Kkma
 from konlpy.tag import Twitter
 
 
@@ -32,8 +31,6 @@ def main():
     """
 
     start_time = timeit.default_timer()
-    #time.process_time()
-
 
     twitter = Twitter()
     #kkma = Kkma()
@@ -99,7 +96,7 @@ def main():
 
     # Word2Vec 모델 만들기 
     print("word2vec 모델 생성 중 ...")
-    wakati_file = input_model_name + ".txt"
+    wakati_file = input_model_name + ".morpho"
     #print(wakati_file)
 
     with open(wakati_file, 'w', encoding="utf-8") as f:
@@ -114,9 +111,6 @@ def main():
     # 실행 시간을 측정할 코드
     end_time = timeit.default_timer()
     print("%f초 걸렸습니다." % (end_time - start_time))
-
-    #end_time = time.process_time()
-    #print(f"time elapsed : {int(round((end_time - start_time) * 1000))}ms")
 
     print(model_name + ' 모델 저장됨!')
     print('-finished-')
@@ -142,15 +136,16 @@ def main():
 
     print("=========================================")
 
-    # showGraph(wordInfo, paper_name)
+    saveGraph(wordInfo, paper_name)
 
 
 
-def showGraph(word_info, paper_name):
+def saveGraph(word_info, paper_name):
     """
     다빈도 단어 중 top20의 단어와 단어별 빈도수를 
     히스토그램 그래프로 나타낸다.
     """
+    save_path =  "./../data/" + paper_name + ".png"
     # font_location = "c:\Windows\Fonts\malgun.ttf"
     # font_name = font_manager.FontProperties(fname=font_location).get_name()
     path_gothic = '/usr/share/fonts/truetype/nanum/NanumGothic.ttf'
@@ -164,10 +159,11 @@ def showGraph(word_info, paper_name):
     Sorted_Dict_Values = sorted(word_info.values(), reverse=True)
     Sorted_Dict_Keys = sorted(word_info, key=word_info.get, reverse=True)   
  
-    plt.title(paper_name + "_Top 20 키워드! [v.twitter 형태소]")
+    plt.title(paper_name + "_Top 20 키워드!!! ")
     plt.bar(range(len(word_info)), Sorted_Dict_Values, align='center')
     plt.xticks(range(len(word_info)), list(Sorted_Dict_Keys), rotation='70')  
-    plt.show()
+    plt.savefig(save_path)
+    #plt.show()
 
 
 
