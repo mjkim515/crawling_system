@@ -1,0 +1,5 @@
+[ 2022-03-12 16:57:42.71 ] Crawl and Generate Word2vec model 
+   1. [ 16:57:42.71 - Jeju Start ] 
+[ 2022-03-12 16:58:40.29 ] Word2vec model generation end !!! 
+[ 2022-03-12 16:58:40.29 ] Related word extraction start!! 
+[ 2022-03-12 16:58:42.98 ] Related words saved!! 
